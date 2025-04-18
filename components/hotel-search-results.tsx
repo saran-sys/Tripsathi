@@ -89,7 +89,7 @@ export function HotelSearchResults() {
                   />
                   {hotel.discount && <Badge className="absolute top-2 left-2 bg-red-500">{hotel.discount}</Badge>}
                   {hotel.eco && (
-                    <Badge className="absolute top-2 right-2 bg-green-500">
+                    <Badge className="absolute top-2 right-2 bg-[#FF5722]">
                       <Leaf className="h-3 w-3 mr-1" /> Eco-friendly
                     </Badge>
                   )}

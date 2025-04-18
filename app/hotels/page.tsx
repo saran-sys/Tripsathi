@@ -89,7 +89,7 @@ export default function HotelsPage() {
               </Select>
             </div>
             <div className="flex items-end">
-              <Button className="w-full bg-green-600 hover:bg-green-700">
+              <Button className="w-full bg-[#FF5722] hover:bg-[#FF5722]/90">
                 <Search className="mr-2 h-4 w-4" /> Search Hotels
               </Button>
             </div>

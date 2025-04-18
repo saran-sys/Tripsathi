@@ -25,7 +25,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
+                <Button asChild size="lg" className="bg-[#FF5722] hover:bg-[#FF5722]/90">
                   <Link href="/dashboard">
                     Plan Your Trip <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -101,32 +101,32 @@ export default function Home() {
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3">
             <FeatureCard
-              icon={<Calendar className="h-10 w-10 text-green-600" />}
+              icon={<Calendar className="h-10 w-10 text-[#FF5722]" />}
               title="Custom Itineraries"
               description="Create personalized travel plans tailored to your preferences and schedule."
             />
             <FeatureCard
-              icon={<Map className="h-10 w-10 text-green-600" />}
+              icon={<Map className="h-10 w-10 text-[#FF5722]" />}
               title="Offline Maps"
               description="Access maps and directions even without internet connectivity."
             />
             <FeatureCard
-              icon={<Zap className="h-10 w-10 text-green-600" />}
+              icon={<Zap className="h-10 w-10 text-[#FF5722]" />}
               title="Real-time Updates"
               description="Get instant notifications about flight delays, weather changes, and more."
             />
             <FeatureCard
-              icon={<Globe className="h-10 w-10 text-green-600" />}
+              icon={<Globe className="h-10 w-10 text-[#FF5722]" />}
               title="Sustainable Travel"
               description="Discover eco-friendly destinations and reduce your carbon footprint."
             />
             <FeatureCard
-              icon={<Shield className="h-10 w-10 text-green-600" />}
+              icon={<Shield className="h-10 w-10 text-[#FF5722]" />}
               title="Secure Bookings"
               description="Book with confidence with our secure payment system and guarantees."
             />
             <FeatureCard
-              icon={<Plane className="h-10 w-10 text-green-600" />}
+              icon={<Plane className="h-10 w-10 text-[#FF5722]" />}
               title="All-in-One Booking"
               description="Book flights, hotels, cabs, and packages in a single platform."
             />

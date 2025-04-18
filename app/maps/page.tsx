@@ -60,7 +60,7 @@ export default function MapsPage() {
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
                     <Input placeholder="Search for a city or region" className="pl-8" />
                   </div>
-                  <Button className="bg-green-600 hover:bg-green-700">Search</Button>
+                  <Button className="bg-[#FF5722] hover:bg-[#FF5722]/90">Search</Button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -159,7 +159,7 @@ export default function MapsPage() {
                 </div>
               </div>
               <div className="flex items-end">
-                <Button className="w-full bg-green-600 hover:bg-green-700">
+                <Button className="w-full bg-[#FF5722] hover:bg-[#FF5722]/90">
                   <Navigation className="h-4 w-4 mr-2" /> Get Directions Offline
                 </Button>
               </div>

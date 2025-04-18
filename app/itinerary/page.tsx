@@ -75,7 +75,7 @@ export default function ItineraryPage() {
                 <Button variant="outline">
                   <Download className="h-4 w-4 mr-2" /> Export
                 </Button>
-                <Button className="bg-green-600 hover:bg-green-700">
+                <Button className="bg-[#FF5722] hover:bg-[#FF5722]/90">
                   <Edit className="h-4 w-4 mr-2" /> Edit
                 </Button>
               </div>
@@ -155,7 +155,7 @@ export default function ItineraryPage() {
                         <Button size="sm" variant="outline">
                           View
                         </Button>
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                        <Button size="sm" className="bg-[#FF5722] hover:bg-[#FF5722]/90">
                           Copy to My Itineraries
                         </Button>
                       </div>

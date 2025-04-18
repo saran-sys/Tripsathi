@@ -88,7 +88,7 @@ export default function FlightsPage() {
                   </Select>
                 </div>
                 <div className="flex items-end">
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
+                  <Button className="w-full bg-[#FF5722] hover:bg-[#FF5722]/90">
                     <Search className="mr-2 h-4 w-4" /> Search Flights
                   </Button>
                 </div>
@@ -152,7 +152,7 @@ export default function FlightsPage() {
                   </Select>
                 </div>
                 <div className="flex items-end">
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
+                  <Button className="w-full bg-[#FF5722] hover:bg-[#FF5722]/90">
                     <Search className="mr-2 h-4 w-4" /> Search Flights
                   </Button>
                 </div>
@@ -210,7 +210,7 @@ export default function FlightsPage() {
               </div>
               <div className="flex justify-between mt-4">
                 <Button variant="outline">+ Add Another Flight</Button>
-                <Button className="bg-green-600 hover:bg-green-700">
+                <Button className="bg-[#FF5722] hover:bg-[#FF5722]/90">
                   <Search className="mr-2 h-4 w-4" /> Search Flights
                 </Button>
               </div>
@@ -239,7 +239,7 @@ export default function FlightsPage() {
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm text-gray-500">Round Trip, Economy</p>
-                  <p className="text-lg font-bold text-green-600">$499</p>
+                  <p className="text-lg font-bold text-[#FF5722]">$499</p>
                 </div>
                 <Button size="sm">View Deal</Button>
               </div>
@@ -262,7 +262,7 @@ export default function FlightsPage() {
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm text-gray-500">Round Trip, Economy</p>
-                  <p className="text-lg font-bold text-green-600">$799</p>
+                  <p className="text-lg font-bold text-[#FF5722]">$799</p>
                 </div>
                 <Button size="sm">View Deal</Button>
               </div>
@@ -285,7 +285,7 @@ export default function FlightsPage() {
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm text-gray-500">Round Trip, Economy</p>
-                  <p className="text-lg font-bold text-green-600">$299</p>
+                  <p className="text-lg font-bold text-[#FF5722]">$299</p>
                 </div>
                 <Button size="sm">View Deal</Button>
               </div>

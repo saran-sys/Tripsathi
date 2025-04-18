@@ -62,7 +62,7 @@ export function RecommendedPackages() {
               <div className="flex items-center">
                 <span className="font-bold text-[#FF5722]">{pkg.price}</span>
                 {pkg.eco && (
-                  <span className="ml-2 inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                  <span className="ml-2 inline-flex items-center rounded-full bg-[#FF5722]/10 px-2.5 py-0.5 text-xs font-medium text-[#FF5722]">
                     <Leaf className="h-3 w-3 mr-1" /> Eco-friendly
                   </span>
                 )}

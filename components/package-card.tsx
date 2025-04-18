@@ -24,7 +24,7 @@ export function PackageCard({ image, title, description, price, rating, eco = fa
           className="h-full w-full object-cover transition-all hover:scale-105"
         />
         {eco && (
-          <div className="absolute top-2 right-2 bg-green-600 text-white p-1 rounded-md flex items-center">
+          <div className="absolute top-2 right-2 bg-[#FF5722] text-white p-1 rounded-md flex items-center">
             <Leaf className="h-4 w-4 mr-1" />
             <span className="text-xs font-medium">Eco-friendly</span>
           </div>

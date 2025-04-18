@@ -128,7 +128,7 @@ export function FlightSearchResults() {
                       </div>
                     ))}
                     {flight.eco && (
-                      <div className="text-green-600">
+                      <div className="text-[#FF5722]">
                         <Leaf className="h-4 w-4" />
                       </div>
                     )}
