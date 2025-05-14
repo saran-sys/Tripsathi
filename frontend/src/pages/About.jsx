@@ -14,21 +14,15 @@ const About = () => {
               <div className="content">
                 <h1>About Us</h1>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Doloribus beatae tempore voluptatibus iusto blanditiis,
-                  repudiandae voluptates earum consequuntur ex, autem recusandae
-                  distinctio consectetur aspernatur id enim nesciunt molestias
-                  temporibus provident. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Quia provident accusantium saepe quaerat aut
-                  aliquam, ab corrupti! Rerum impedit nisi pariatur aspernatur.
-                  Molestias architecto temporibus minus pariatur molestiae
-                  suscipit distinctio.
+                At Tripsathi, we believe that travel should be smart, seamless, and stress-free. Our mission is to revolutionize the way people plan, manage, and experience their journeys through the power of technology.
+
+Born out of a passion for exploration and innovation, Tripsathi is more than just a travel platform — it's your intelligent travel companion. Whether you're planning a solo adventure, a family vacation, or a business trip, we bring everything you need into one smart solution.
                 </p>
               </div>
-              <div className="slider">
+              {/* <div className="slider">
                 <h2>Our team</h2>
                 <Team />
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>
@@ -46,34 +40,26 @@ const About = () => {
               <div className="ContactUs_content">
                 <h2>Ask how we can help you ...</h2>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                  commodi voluptatem autem magnam blanditiis tempora!
-                  <br />
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                  commodi voluptatem autem magnam blanditiis tempora!
-                  <br />
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Got questions or need support? We’re here to help. Reach out to us anytime — we’ll get back to you shortly. Let’s make your journey easier and smarter.
                 </p>
 
                 <h2>Offline location</h2>
                 <p>
-                  Position 1 <br />
-                  dolor sit amet,
-                  <br /> consectetur adipiscing elit,
-                  <br /> sed do ei usmod tempor
-                  <br /> incididunt ut labore
+                Tripsathi Office<br/>
+                Pokhara, Nepal<br/>
+                New Road, 3rd Floor, XYZ Complex<br/>
+                Open: Sunday – Friday | 10:00 AM – 5:00 PM<br/>
+                Drop by — we’re always happy to connect!
                 </p>
 
                 <h2>Contact Information</h2>
-                <p>Email: pearl@info.com</p>
-                <p>Phone: +94 77 123 4567</p>
+                
+                <p>Phone: +977 9765652822<br/>
+                Email: contact@tripsathi.com</p>
 
                 <h2>Privacy Information</h2>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi, iste ab! Consectetur fugit possimus, dolorem facere
-                  et laboriosam molestiae ut aliquam corporis animi quasi
-                  asperiores architecto doloremque ipsa, consequatur quas.
+                Your data is safe with Tripsathi. We only collect what's needed to improve your experience and never share your information without consent.
                 </p>
               </div>
             </Col>

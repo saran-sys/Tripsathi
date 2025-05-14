@@ -110,7 +110,7 @@ const Footer = () => {
                   Address:
                 </h6>
 
-                <p className="mb-0">Belihuloya, Balangoda</p>
+                <p className="mb-0">Lakeside, Pokhara</p>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb=0 d-flex align-items-center gap-2">
@@ -120,7 +120,7 @@ const Footer = () => {
                   Email:
                 </h6>
 
-                <p className="mb-0">info@pearl.com</p>
+                <p className="mb-0">info@tripsathi.com</p>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb=0 d-flex align-items-center gap-2">
@@ -130,7 +130,7 @@ const Footer = () => {
                   Phone:
                 </h6>
 
-                <p className="mb-0">+941122565</p>
+                <p className="mb-0">+977 9765652822</p>
               </ListGroupItem>
             </ListGroup>
           </Col>

@@ -25,13 +25,13 @@ const Home = () => {
             <Col lg="6">
               <div className="hero_Content">
                 <h1>
-                  Welecome <br /> to Sri Lanka
+                  Welecome <br /> to Nepal
                 </h1>
                 <p>
-                  Discover the beauty of Sri Lanka - pristine beaches, lush tea
+                  Discover the beauty of Nepal - pristine beaches, lush tea
                   plantations, ancient temples, and vibrant markets. Experience
                   warm hospitality, delicious cuisine, and create lifelong
-                  memories. Explore Sri Lanka's wonders and let its enchanting
+                  memories. Explore Nepal's wonders and let its enchanting
                   landscapes captivate you. Start your journey today!
                 </p>
               </div>

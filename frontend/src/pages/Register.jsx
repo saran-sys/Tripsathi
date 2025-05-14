@@ -10,22 +10,25 @@ import userIcon from "../assets/images/user.png";
 import { AuthContext } from "./../context/AuthContext";
 import { BASE_URL } from "./../utils/config";
 
-export default function Register () {
+export default function Register() {
   const [credentials, setCredentials] = useState({
     username: undefined,
     email: undefined,
     password: undefined,
   });
 
+  const [error, setError] = useState("");
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setError(""); // Clear error when user types
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
       const res = await fetch(`${BASE_URL}/auth/register`, {
@@ -37,12 +40,15 @@ export default function Register () {
       });
       const result = await res.json();
 
-      if (!res.ok) alert(result.message);
+      if (!res.ok) {
+        setError(result.message || "Registration failed. Please try again.");
+        return;
+      }
 
       dispatch({ type: "REGISTER_SUCCESS" });
       navigate("/login");
     } catch (err) {
-      alert(err.message);
+      setError("Network error. Please check your connection and try again.");
     }
   };
 
@@ -61,6 +67,8 @@ export default function Register () {
                   <img src={userIcon} alt="" />
                 </div>
                 <h2>Sign Up</h2>
+
+                {error && <div className="alert alert-danger">{error}</div>}
 
                 <Form onSubmit={handleClick}>
                   <FormGroup>
@@ -91,11 +99,11 @@ export default function Register () {
                     />
                   </FormGroup>
                   <Button className="btn_login auth__btn" type="submit">
-                    Creat Account
+                    Create Account
                   </Button>
                 </Form>
                 <p>
-                  Already have an account <Link to="/login"> Login</Link>
+                  Already have an account? <Link to="/login">Login</Link>
                 </p>
               </div>
             </div>
@@ -104,6 +112,6 @@ export default function Register () {
       </Container>
     </section>
   );
-};
+}
 
 
