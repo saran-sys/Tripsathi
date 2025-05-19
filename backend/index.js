@@ -8,6 +8,8 @@ import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
 import reviewRoute from "./routes/review.js";
 import bookingRoute from "./routes/booking.js";
+import externalFlights from './routes/externalFlights.js';
+
 
 dotenv.config();
 
@@ -43,6 +45,7 @@ app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
+app.use('/api/external-flights', externalFlights);
 
 app.listen(port, () => {
   connect();

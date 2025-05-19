@@ -1,0 +1,13 @@
+.add-tour-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.add-tour-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+} 

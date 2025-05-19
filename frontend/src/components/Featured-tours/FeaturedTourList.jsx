@@ -1,8 +1,5 @@
 import React from "react";
 import TourCard from "../../shared/TourCard";
-
-import loadingGif from "../../assets/images/loading.gif";
-
 import { Col } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../utils/config";
@@ -16,17 +13,18 @@ const FeaturedTourList = () => {
 
   return (
     <>
-      {loading && <video src={loadingGif} />}
+      {loading && <h4 className="text-center pt-5">Loading......</h4>}
+      {error && <h4 className="text-center pt-5">{error}</h4>}
 
-      {error && <h4>{error}</h4>}
+      {!loading && !error && featuredTours?.length === 0 && (
+        <h4 className="text-center pt-5">No featured tours available</h4>
+      )}
 
-      {!loading &&
-        !error &&
-        featuredTours?.map((tour) => (
-          <Col lg="3" md="6" sm="6" className="mb-4" key={tour._id}>
-            <TourCard tour={tour} />
-          </Col>
-        ))}
+      {!loading && !error && featuredTours?.length > 0 && featuredTours?.map((tour) => (
+        <Col lg="3" md="6" sm="6" className="mb-4" key={tour._id}>
+          <TourCard tour={tour} />
+        </Col>
+      ))}
     </>
   );
 };

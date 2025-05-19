@@ -6,29 +6,42 @@ import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const locationRef = useRef("");
-  const distanceRef = useRef(0);
-  const maxGroupSizeRef = useRef(0);
   const navigate = useNavigate();
 
   const searchHandler = async () => {
     const location = locationRef.current.value;
-    const distance = distanceRef.current.value;
-    const maxGroupSize = maxGroupSizeRef.current.value;
 
-    if (location === " " || distance === " " || maxGroupSize === " ") {
-      return alert("All fields should be filled!");
+    if (location === "") {
+      return alert("Please enter a destination!");
     }
-    const res = await fetch(
-      `${BASE_URL}/tours/search/getTourBySearch?city=${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`
-    );
-    if (!res.ok) alert("Something went wrong");
 
-    const result = await res.json();
+    try {
+      const res = await fetch(
+        `${BASE_URL}/tours/search/getTourBySearch?city=${location}`
+      );
+      
+      if (!res.ok) {
+        throw new Error("Failed to fetch search results");
+      }
 
-    navigate(
-      `/tours/search?city=${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`,
-      { state: result.data }
-    );
+      const result = await res.json();
+      
+      // Navigate to search results page with the data
+      navigate(
+        `/tours/search?city=${location}`,
+        { state: result.data }
+      );
+    } catch (error) {
+      console.error("Search error:", error);
+      alert("Failed to search tours. Please try again.");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      searchHandler();
+    }
   };
 
   return (
@@ -40,34 +53,13 @@ const SearchBar = () => {
               <i className="ri-map-pin-line"></i>
             </span>
             <div>
-              <h6>Location</h6>
+              <h6>Where do you want to go?</h6>
               <input
                 type="text"
-                placeholder="Where are you going"
+                placeholder="Search destination"
                 ref={locationRef}
+                onKeyPress={handleKeyPress}
               />
-            </div>
-          </FormGroup>
-          <FormGroup className="d-flex gap-3 form_group form_group-fast">
-            <span>
-              <i className="ri-map-pin-time-line"></i>
-            </span>
-            <div>
-              <h6>Distance</h6>
-              <input
-                type="number"
-                placeholder="Distance k/m"
-                ref={distanceRef}
-              />
-            </div>
-          </FormGroup>
-          <FormGroup className="d-flex gap-3 form_group form_group-last">
-            <span>
-              <i className="ri-group-line"></i>
-            </span>
-            <div>
-              <h6>Max People</h6>
-              <input type="number" placeholder="0" ref={maxGroupSizeRef} />
             </div>
           </FormGroup>
 
