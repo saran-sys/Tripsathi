@@ -16,21 +16,21 @@ const SearchBar = () => {
     }
 
     try {
-      const res = await fetch(
+    const res = await fetch(
         `${BASE_URL}/tours/search/getTourBySearch?city=${location}`
-      );
+    );
       
       if (!res.ok) {
         throw new Error("Failed to fetch search results");
       }
 
-      const result = await res.json();
-      
+    const result = await res.json();
+
       // Navigate to search results page with the data
-      navigate(
+    navigate(
         `/tours/search?city=${location}`,
-        { state: result.data }
-      );
+      { state: result.data }
+    );
     } catch (error) {
       console.error("Search error:", error);
       alert("Failed to search tours. Please try again.");

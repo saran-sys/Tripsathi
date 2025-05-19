@@ -9,7 +9,8 @@ import authRoute from "./routes/auth.js";
 import reviewRoute from "./routes/review.js";
 import bookingRoute from "./routes/booking.js";
 import externalFlights from './routes/externalFlights.js';
-
+import tourBookingRoute from './routes/tourBookingRoutes.js'; // ✅ Added
+import itineraryRoute from './routes/itinerary.js'; // ✅ Added
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ const corsOptions = {
   origin: true,
   credentials: true,
 };
-// database connection
+
+// Database connection
 mongoose.set("strictQuery", false);
 const connect = async () => {
   try {
@@ -32,20 +34,19 @@ const connect = async () => {
     console.log("MongoDB database not connected");
   }
 };
-// //FOR TESTING
-// app.get("/",(req,res)=>{
-//     res.send("api is working");
-// });
 
 app.use(express.json());
-app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(cors(corsOptions));
+
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
+app.use("/api/v1/tour-bookings", tourBookingRoute);
 app.use('/api/external-flights', externalFlights);
+app.use('/api/itineraries', itineraryRoute);
 
 app.listen(port, () => {
   connect();

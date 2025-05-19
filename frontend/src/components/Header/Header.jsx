@@ -36,6 +36,10 @@ const Header = () => {
     navigate("/");
   };
 
+  const navigateToDashboard = () => {
+    navigate("/dashboard");
+  };
+
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
       if (
@@ -64,7 +68,6 @@ const Header = () => {
           <div className="nav_wrapper d-flex align-items-center justify-content-between">
             {/* logo start */}
             <div className="logo">
-          
               <img src={logo} alt="" />
             </div>
             {/* logo end */}
@@ -84,6 +87,18 @@ const Header = () => {
                     </NavLink>
                   </li>
                 ))}
+                {user && (
+                  <li className="nav_item">
+                    <NavLink
+                      to="/itinerary"
+                      className={(navClass) =>
+                        navClass.isActive ? "active_link" : ""
+                      }
+                    >
+                      Itinerary
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </div>
             {/* Nav bar start */}
@@ -91,7 +106,9 @@ const Header = () => {
               <div className="nav_btns d-flex align-items-center gap-4">
                 {user ? (
                   <>
-                    <h5 className="mb-0">{user.username}</h5>
+                    <h5 className="mb-0 user__name" onClick={navigateToDashboard} style={{ cursor: 'pointer' }}>
+                      {user.username}
+                    </h5>
                     <Button className="btn btn_dark" onClick={logout}>
                       Logout
                     </Button>

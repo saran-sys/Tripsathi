@@ -11,7 +11,10 @@ import SearchResultList from './../pages/SearchResultList';
 import Thankyou from '../pages/Thankyou';
 import FlightsPage from './../pages/FlightsPage';
 import AddTour from './../pages/AddTour';
-
+import UserDashboard from './../pages/UserDashboard';
+import ProtectedRoute from '../components/ProtectedRoute';
+import ItineraryList from '../components/Itinerary/ItineraryList';
+import ItineraryForm from '../components/Itinerary/ItineraryForm';
 
 const Routers = () => {
   return (
@@ -27,6 +30,26 @@ const Routers = () => {
         <Route path='/tours/search' element={<SearchResultList/>} />
         <Route path='/flights' element={<FlightsPage />} />
         <Route path='/add-tour' element={<AddTour />} />
+        <Route path='/dashboard' element={
+          <ProtectedRoute>
+            <UserDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path='/itinerary' element={
+          <ProtectedRoute>
+            <ItineraryList />
+          </ProtectedRoute>
+        } />
+        <Route path='/itinerary/create' element={
+          <ProtectedRoute>
+            <ItineraryForm />
+          </ProtectedRoute>
+        } />
+        <Route path='/itinerary/edit/:id' element={
+          <ProtectedRoute>
+            <ItineraryForm />
+          </ProtectedRoute>
+        } />
     </Routes>
   ) 
 }

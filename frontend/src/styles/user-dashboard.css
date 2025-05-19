@@ -1,0 +1,158 @@
+.dashboard__nav {
+  background: var(--primary-color);
+  padding: 2rem;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user__info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user__avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user__info h5 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.user__info p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dashboard__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dashboard__tab {
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+}
+
+.dashboard__tab i {
+  font-size: 1.2rem;
+}
+
+.dashboard__tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard__tab.active {
+  background: #fff;
+  color: var(--primary-color);
+}
+
+.dashboard__content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  min-height: 500px;
+}
+
+.notifications__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notification__item {
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.notification__item:hover {
+  transform: translateX(5px);
+  background: #f1f3f5;
+}
+
+.notification__item.unread {
+  background: #e7f5ff;
+  border-left: 4px solid var(--primary-color);
+}
+
+.notification__content {
+  flex: 1;
+}
+
+.notification__content p {
+  margin-bottom: 0.25rem;
+  color: #495057;
+}
+
+.notification__date {
+  font-size: 0.8rem;
+  color: #868e96;
+}
+
+.notification__badge {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  margin-left: 1rem;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 992px) {
+  .dashboard__nav {
+    margin-bottom: 2rem;
+  }
+  
+  .user__avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .dashboard__nav,
+  .dashboard__content {
+    padding: 1.5rem;
+  }
+  
+  .user__avatar {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .dashboard__tab {
+    padding: 0.8rem;
+  }
+  
+  .notification__item {
+    padding: 0.8rem;
+  }
+} 
