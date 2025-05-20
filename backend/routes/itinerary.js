@@ -5,16 +5,27 @@ import {
   getUserItineraries,
   getSingleItinerary,
   updateItinerary,
+  deleteItinerary
 } from '../controllers/itineraryController.js';
 
 const router = express.Router();
 
-// Protect all routes
+// All routes are protected
 router.use(protect);
 
+// Create new itinerary
 router.post('/', createItinerary);
-router.get('/user', getUserItineraries);
+
+// Get user's itineraries
+router.get('/user/:userId', getUserItineraries);
+
+// Get single itinerary
 router.get('/:idOrSlug', getSingleItinerary);
+
+// Update itinerary
 router.put('/:id', updateItinerary);
+
+// Delete itinerary
+router.delete('/:id', deleteItinerary);
 
 export default router;

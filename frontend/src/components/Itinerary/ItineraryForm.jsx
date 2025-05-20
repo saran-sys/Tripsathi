@@ -24,15 +24,20 @@ const ItineraryForm = () => {
 
   const fetchItinerary = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/itineraries/${id}`, {
+      const res = await fetch(`${BASE_URL}/itinerary/${id}`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
       });
       const data = await res.json();
-      setFormData(data);
+      if (data.success) {
+        setFormData(data.data);
+      } else {
+        throw new Error(data.message);
+      }
     } catch (error) {
       console.error('Error fetching itinerary:', error);
+      alert('Failed to fetch itinerary details');
     }
   };
 
@@ -85,7 +90,7 @@ const ItineraryForm = () => {
         date: new Date(dest.date).toISOString() // Convert date to ISO string
       }));
 
-      const url = id ? `${BASE_URL}/itineraries/${id}` : `${BASE_URL}/itineraries`;
+      const url = id ? `${BASE_URL}/itinerary/${id}` : `${BASE_URL}/itinerary`;
       const method = id ? 'PUT' : 'POST';
       
       console.log('Making request to:', url);

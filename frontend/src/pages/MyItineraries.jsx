@@ -16,7 +16,14 @@ const MyItineraries = () => {
     console.log('Token:', user?.token);
   }, [user]);
 
-  const { data: itineraries, loading, error } = useFetch(`${BASE_URL}/itinerary/user`);
+  const { data: itineraries, loading, error } = useFetch(
+    user ? `${BASE_URL}/itinerary/user/${user._id}` : null,
+    {
+      headers: {
+        'Authorization': `Bearer ${user?.token}`
+      }
+    }
+  );
 
   // Debug: Log the API response
   useEffect(() => {
@@ -25,43 +32,56 @@ const MyItineraries = () => {
     console.log('Error:', error);
   }, [itineraries, loading, error]);
 
+  if (loading) return <h4 className="text-center">Loading...</h4>;
+  if (error) return <h4 className="text-center">{error}</h4>;
+
   return (
-    <section>
+    <section className="my-itineraries">
       <Container>
         <Row>
-          <Col lg="12" className="mb-5 text-center">
-            <h2 className="featured__tour-title">My Itineraries</h2>
+          <Col lg="12" className="mb-5">
+            <div className="d-flex justify-content-between align-items-center">
+              <h2>My Itineraries</h2>
+              <Link to="/itinerary/create" className="btn primary__btn">
+                <FaPlus /> Create New Itinerary
+              </Link>
+            </div>
           </Col>
-          <Col lg="12" className="mb-4">
-            <Link to="/create-itinerary" className="btn btn-primary">
-              <FaPlus /> Create New Itinerary
-            </Link>
-          </Col>
-          {loading && <h4 className="text-center">Loading...</h4>}
-          {error && <h4 className="text-center">{error}</h4>}
-          {!loading &&
-            !error &&
-            itineraries?.map((itinerary) => (
-              <Col lg="4" md="6" sm="6" className="mb-4" key={itinerary._id}>
+          {itineraries?.length === 0 ? (
+            <Col lg="12">
+              <div className="text-center">
+                <h4>No itineraries found</h4>
+                <p>Start by creating your first itinerary!</p>
+              </div>
+            </Col>
+          ) : (
+            itineraries?.map(itinerary => (
+              <Col lg="4" md="6" key={itinerary._id}>
                 <div className="itinerary__card">
-                  <div className="itinerary__img">
-                    <img src={itinerary.destinations[0]?.image} alt="" />
+                  <h5>{itinerary.title}</h5>
+                  <p>{itinerary.description}</p>
+                  <div className="itinerary__info">
+                    <span>
+                      <i className="ri-map-pin-line"></i> {itinerary.destinations.length} Destinations
+                    </span>
+                    <span>
+                      <i className="ri-calendar-line"></i> {new Date(itinerary.createdAt).toLocaleDateString()}
+                    </span>
                   </div>
-                  <div className="itinerary__content">
-                    <h5>{itinerary.title}</h5>
-                    <p>{itinerary.description}</p>
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Link to={`/itinerary/${itinerary._id}`} className="btn btn-primary">
-                        View Details
+                  <div className="itinerary__actions">
+                    <Link to={`/itinerary/${itinerary._id}`}>
+                      <button className="btn primary__btn">View Details</button>
+                    </Link>
+                    {itinerary.isPublic && (
+                      <Link to={`/itinerary/share/${itinerary.sharedSlug}`}>
+                        <button className="btn secondary__btn">Share</button>
                       </Link>
-                      <Link to={`/edit-itinerary/${itinerary._id}`} className="btn btn-outline-primary">
-                        Edit
-                      </Link>
-                    </div>
+                    )}
                   </div>
                 </div>
               </Col>
-            ))}
+            ))
+          )}
         </Row>
       </Container>
     </section>
