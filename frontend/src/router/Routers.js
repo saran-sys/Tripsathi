@@ -15,6 +15,7 @@ import UserDashboard from './../pages/UserDashboard';
 import ProtectedRoute from '../components/ProtectedRoute';
 import ItineraryList from '../components/Itinerary/ItineraryList';
 import ItineraryForm from '../components/Itinerary/ItineraryForm';
+import MyBookings from '../pages/MyBookings';
 
 const Routers = () => {
   return (
@@ -33,6 +34,11 @@ const Routers = () => {
         <Route path='/dashboard' element={
           <ProtectedRoute>
             <UserDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path='/my-bookings' element={
+          <ProtectedRoute>
+            <MyBookings />
           </ProtectedRoute>
         } />
         <Route path='/itinerary' element={

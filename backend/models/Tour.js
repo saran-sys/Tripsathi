@@ -5,15 +5,17 @@ const tourSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
     },
     city: {
       type: String,
       required: true,
+      trim: true,
     },
     address: {
       type: String,
       required: true,
+      trim: true,
     },
     distance: {
       type: Number,
@@ -38,7 +40,7 @@ const tourSchema = new mongoose.Schema(
 
     reviews: [
       {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Review",
       },
     ],
@@ -51,4 +53,9 @@ const tourSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Tour", tourSchema);
+// Add index for search functionality
+tourSchema.index({ title: 'text', city: 'text', address: 'text' });
+
+const Tour = mongoose.model("Tour", tourSchema);
+
+export default Tour;

@@ -4,10 +4,9 @@ import CommonSection from '../shared/CommonSection';
 import '../styles/user-dashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import TourBookings from '../components/TourBookings/TourBookings';
 
 const UserDashboard = () => {
-  const [activeTab, setActiveTab] = useState('bookings');
+  const [activeTab, setActiveTab] = useState('past-trips');
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -48,14 +47,6 @@ const UserDashboard = () => {
                 <Nav className="dashboard__menu">
                   <NavItem>
                     <NavLink
-                      className={`dashboard__tab ${activeTab === 'bookings' ? 'active' : ''}`}
-                      onClick={() => toggleTab('bookings')}
-                    >
-                      <i className="ri-calendar-check-line"></i> My Bookings
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
                       className={`dashboard__tab ${activeTab === 'past-trips' ? 'active' : ''}`}
                       onClick={() => toggleTab('past-trips')}
                     >
@@ -70,17 +61,19 @@ const UserDashboard = () => {
                       <i className="ri-notification-3-line"></i> Notifications
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className="dashboard__tab"
+                      onClick={() => navigate('/my-bookings')}
+                    >
+                      <i className="ri-book-2-line"></i> All Bookings
+                    </NavLink>
+                  </NavItem>
                 </Nav>
               </div>
             </Col>
             <Col lg="9" md="8" sm="12">
               <div className="dashboard__content">
-                {activeTab === 'bookings' && (
-                  <div className="bookings__tab">
-                    <TourBookings />
-                  </div>
-                )}
-
                 {activeTab === 'past-trips' && (
                   <div className="past-trips__tab">
                     <h4>Past Trips</h4>

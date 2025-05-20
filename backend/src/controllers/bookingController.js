@@ -1,39 +1,17 @@
 import Booking from '../models/Booking.js';
 
 // @desc    Create new booking
-// @route   POST /api/v1/booking
+// @route   POST /api/v1/bookings
 // @access  Private
 export const createBooking = async (req, res) => {
   try {
-    // Validate required fields
-    const { tourId, userId, userEmail, fullName, phoneNumber, bookAt, guestsSize, totalAmount } = req.body;
-    
-    if (!tourId || !userId || !userEmail || !fullName || !phoneNumber || !bookAt || !guestsSize || !totalAmount) {
-      return res.status(400).json({
-        success: false,
-        message: 'Missing required fields'
-      });
-    }
-
-    // Create the booking
-    const booking = await Booking.create({
-      tourId,
-      userId,
-      userEmail,
-      fullName,
-      phoneNumber,
-      bookAt,
-      guestsSize,
-      totalAmount
-    });
-
+    const booking = await Booking.create(req.body);
     res.status(201).json({
       success: true,
-      message: 'Tour booked successfully',
+      message: 'Booking created successfully',
       data: booking
     });
   } catch (error) {
-    console.error('Booking creation error:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to create booking',
@@ -95,23 +73,15 @@ export const getBooking = async (req, res) => {
 };
 
 // @desc    Update booking status
-// @route   PUT /api/v1/booking/:id
+// @route   PUT /api/v1/bookings/:id
 // @access  Private
 export const updateBooking = async (req, res) => {
   try {
-    const { status, paymentDetails } = req.body;
-    
-    const updateData = { status };
-    if (paymentDetails) {
-      updateData.paymentDetails = paymentDetails;
-      updateData.paymentDate = new Date();
-    }
-
     const booking = await Booking.findByIdAndUpdate(
       req.params.id,
-      updateData,
+      { status: req.body.status },
       { new: true, runValidators: true }
-    ).populate('tourId');
+    );
 
     if (!booking) {
       return res.status(404).json({
@@ -156,40 +126,6 @@ export const deleteBooking = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to delete booking',
-      error: error.message
-    });
-  }
-};
-
-// @desc    Confirm payment and update booking status
-// @route   PUT /api/v1/booking/:id/confirm-payment
-// @access  Private
-export const confirmPayment = async (req, res) => {
-  try {
-    const booking = await Booking.findById(req.params.id);
-
-    if (!booking) {
-      return res.status(404).json({
-        success: false,
-        message: 'Booking not found'
-      });
-    }
-
-    // Update booking status to confirmed
-    booking.status = 'confirmed';
-    booking.paymentStatus = 'paid';
-    booking.paymentDate = new Date();
-    await booking.save();
-
-    res.status(200).json({
-      success: true,
-      message: 'Payment confirmed successfully',
-      data: booking
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Failed to confirm payment',
       error: error.message
     });
   }

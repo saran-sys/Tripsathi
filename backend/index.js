@@ -17,8 +17,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 const corsOptions = {
-  origin: true,
-  credentials: true,
+  origin: 'http://localhost:3000',
+  credentials: true
 };
 
 // Database connection
@@ -47,6 +47,26 @@ app.use("/api/v1/booking", bookingRoute);
 app.use("/api/v1/tour-bookings", tourBookingRoute);
 app.use('/api/external-flights', externalFlights);
 app.use('/api/v1/itineraries', itineraryRoute);
+
+app.get('/api/v1/test', (req, res) => {
+  res.json({ message: 'API is working!' });
+});
+
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: `Route not found: ${req.originalUrl}`
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err.stack : undefined
+  });
+});
 
 app.listen(port, () => {
   connect();

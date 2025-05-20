@@ -1,0 +1,129 @@
+.payment__container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.payment__card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payment__card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.payment__details {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.payment__details p {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.payment__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form__group label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.form__group input {
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form__group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.form__group input.error {
+  border-color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.form__row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form__row .form__group {
+  flex: 1;
+}
+
+.payment__error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.payment__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.payment__button {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment__button:hover {
+  background-color: var(--secondary-color);
+}
+
+.payment__button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.secondary__btn {
+  padding: 1rem;
+  font-size: 1.1rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.secondary__btn:hover {
+  background-color: #5a6268;
+} 

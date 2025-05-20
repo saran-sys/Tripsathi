@@ -1,34 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
-
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { BASE_URL } from "../../utils/config";
 
 const Booking = ({ tour, avgRating }) => {
-  const { price, reviews } = tour;
+  const { price, reviews, _id: tourId } = tour;
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const [credentials, setCredentials] = useState({
-    userID: "01", //need to set in backend
-    userEmail: "test@gmail.com",
     fullName: "",
-    questSize: 1,
+    phoneNumber: "",
     bookAt: "",
+    guestsSize: 1,
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setError("");
   };
 
   const serviceFee = 10;
-  const totalAmount =
-    Number(price) * Number(credentials.guestsSize) + serviceFee;
+  const totalAmount = Number(price) * Number(credentials.guestsSize) + serviceFee;
 
-  //send data to server
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    navigate("/thank-you");
+    if (!user) {
+      setError("Please login to book a tour");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const bookingData = {
+        tourId,
+        userId: user._id,
+        userEmail: user.email,
+        fullName: credentials.fullName,
+        phoneNumber: credentials.phoneNumber,
+        bookAt: credentials.bookAt,
+        guestsSize: credentials.guestsSize,
+        totalAmount,
+      };
+
+      const res = await fetch(`${BASE_URL}/booking`, {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+          "Authorization": `Bearer ${user.token}`
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message || "Failed to book tour");
+      }
+
+      navigate("/thank-you");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,7 +86,7 @@ const Booking = ({ tour, avgRating }) => {
         </span>
       </div>
 
-      {/* Booking section start*/}
+      {error && <div className="alert alert-danger">{error}</div>}
 
       <div className="booking_form">
         <h5>Information</h5>
@@ -55,15 +98,17 @@ const Booking = ({ tour, avgRating }) => {
               id="fullName"
               required
               onChange={handleChange}
+              disabled={loading}
             />
           </FormGroup>
           <FormGroup>
             <input
-              type="number"
+              type="tel"
               placeholder="Phone number"
-              id="fullName"
+              id="phoneNumber"
               required
               onChange={handleChange}
+              disabled={loading}
             />
           </FormGroup>
           <FormGroup className="d-flex align-items-center gap-3">
@@ -73,21 +118,20 @@ const Booking = ({ tour, avgRating }) => {
               id="bookAt"
               required
               onChange={handleChange}
+              disabled={loading}
             />
             <input
               type="number"
               placeholder="Guests"
               id="guestsSize"
               required
+              min="1"
               onChange={handleChange}
+              disabled={loading}
             />
           </FormGroup>
         </Form>
       </div>
-
-      {/* Booking section end*/}
-
-      {/* Booking bottom*/}
 
       <div className="booking_bottom">
         <ListGroup>
@@ -110,8 +154,9 @@ const Booking = ({ tour, avgRating }) => {
         <Button
           className="btn primary__btn w-100 mb-1 mt-4"
           onClick={handleClick}
+          disabled={loading}
         >
-          Book Now
+          {loading ? "Booking..." : "Book Now"}
         </Button>
       </div>
     </div>

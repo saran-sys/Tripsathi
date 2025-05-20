@@ -3,45 +3,39 @@ import User from '../models/User.js';
 
 export const protect = async (req, res, next) => {
   try {
-    let token;
-
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      token = req.headers.authorization.split(' ')[1];
-    }
-
-    if (!token) {
+    // Get token from header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         success: false,
-        message: 'Not authorized to access this route'
+        message: 'No token provided'
       });
     }
 
-    try {
-      // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-      
-      // Get user from the token
-      req.user = await User.findById(decoded.id).select('-password');
-      
-      if (!req.user) {
-        return res.status(401).json({
-          success: false,
-          message: 'User not found'
-        });
-      }
+    const token = authHeader.split(' ')[1];
 
-      next();
-    } catch (error) {
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+    // Get user from token
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Not authorized to access this route'
+        message: 'User not found'
       });
     }
-  } catch (error) {
-    res.status(500).json({
+
+    // Add user to request object
+    req.user = user;
+    next();
+  } catch (err) {
+    return res.status(401).json({
       success: false,
-      message: 'Error in authentication middleware',
-      error: error.message
+      message: 'Not authorized'
     });
   }
-}; 
+};
+
+// Alias for protect
+export const verifyToken = protect; 

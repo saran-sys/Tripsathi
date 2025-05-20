@@ -2,29 +2,45 @@ import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema(
   {
+    tourId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tour',
+      required: true
+    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
-    flightId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Flight',
+    userEmail: {
+      type: String,
       required: true
     },
-    numberOfSeats: {
+    fullName: {
+      type: String,
+      required: true
+    },
+    phoneNumber: {
+      type: String,
+      required: true
+    },
+    bookAt: {
+      type: Date,
+      required: true
+    },
+    guestsSize: {
       type: Number,
       required: true,
       min: 1
     },
-    totalPrice: {
+    totalAmount: {
       type: Number,
       required: true
     },
     status: {
       type: String,
-      enum: ['confirmed', 'cancelled'],
-      default: 'confirmed'
+      enum: ['pending', 'confirmed', 'cancelled', 'completed'],
+      default: 'pending'
     }
   },
   { timestamps: true }

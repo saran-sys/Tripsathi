@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import "../styles/tour-details.css";
 import { Container, Row, Col, Form, ListGroup } from "reactstrap";
-import { Await, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import calculateAvgRating from "../utils/avgRating";
 import avatar from "../assets/images/avatar.jpg";
@@ -11,15 +11,17 @@ import useFetch from "../hooks/useFetch";
 import { BASE_URL } from "../utils/config";
 import { AuthContext } from "./../context/AuthContext";
 
-export default function TourDetails () {
+export default function TourDetails() {
   const { id } = useParams();
   const reviewMsgRef = useRef("");
   const [tourRating, setTourRating] = useState(null);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [reviews, setReviews] = useState([]);
 
   //fetch data from database
-  const { data: tour, loading, error } = useFetch(`${BASE_URL}/tours/${id}`);
-
+  const { data: tour, loading: tourLoading, error: tourError } = useFetch(`${BASE_URL}/tours/${id}`);
 
   const {
     photo,
@@ -27,7 +29,6 @@ export default function TourDetails () {
     desc,
     price,
     address,
-    reviews,
     city,
     distance,
     maxGroupSize,
@@ -37,39 +38,65 @@ export default function TourDetails () {
 
   const options = { day: "numeric", month: "long", year: "numeric" };
 
-  //added the review to the backend
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/review/${id}`);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
+
+      setReviews(result.data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchReviews();
+    }
+  }, [id]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    const reviewText = reviewMsgRef.current.value;
+    
+    if (!user) {
+      alert('Please login to submit a review');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
 
     try {
-      if (!user || user) {
-        alert(`${reviewText}, ${tourRating}`);
-      }
-
-      const reviewobj = {
-        username: user?.username,
-        reviewText,
-        rating: tourRating,
-      };
-
-      const res = await fetch(`${BASE_URL}/reviews/${id}`, {
-        method: "post",
+      const response = await fetch(`${BASE_URL}/review/${id}`, {
+        method: 'POST',
         headers: {
-          "content-type": "application/json",
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
         },
-        credentials: "include",
-
-        body: JSON.stringify(reviewobj),
+        credentials: 'include',
+        body: JSON.stringify({
+          rating: tourRating,
+          reviewText: reviewMsgRef.current.value
+        })
       });
 
-      const result = await res.json();
-      if (!res.ok){
-        alert(result.message);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message);
       }
-      alert(result.message)
+
+      setTourRating(5);
+      reviewMsgRef.current.value = '';
+      fetchReviews();
     } catch (err) {
-      alert(err.message);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,9 +108,9 @@ export default function TourDetails () {
     <>
       <section>
         <Container>
-          {loading && <h4 className="text-center pt-5">Loading......</h4>}
-          {error && <h4 className="text-center pt-5">{error}</h4>}
-          {!loading && !error && (
+          {tourLoading && <h4 className="text-center pt-5">Loading......</h4>}
+          {tourError && <h4 className="text-center pt-5">{tourError}</h4>}
+          {!tourLoading && !tourError && (
             <Row>
               <Col lg="8">
                 <div className="tour_content">
@@ -133,66 +160,64 @@ export default function TourDetails () {
                   </div>
 
                   {/* tour review section start */}
-
                   <div className="tour_reviews mt-4">
                     <h4>Reviews ({reviews?.length} reviews)</h4>
 
-                    <Form onSubmit={submitHandler}>
-                      <div className="d-flex align-items-center gap-3 mb-4 rating_group">
-                        <span onClick={() => setTourRating(1)}>
-                          1 <i className="ri-star-s-fill"></i>
-                        </span>
-                        <span onClick={() => setTourRating(2)}>
-                          2 <i className="ri-star-s-fill"></i>
-                        </span>
-                        <span onClick={() => setTourRating(3)}>
-                          3 <i className="ri-star-s-fill"></i>
-                        </span>
-                        <span onClick={() => setTourRating(4)}>
-                          4 <i className="ri-star-s-fill"></i>
-                        </span>
-                        <span onClick={() => setTourRating(5)}>
-                          5 <i className="ri-star-s-fill"></i>
-                        </span>
-                      </div>
+                    {error && <div className="alert alert-danger">{error}</div>}
 
-                      <div className="review_input">
-                        <input
-                          type="text"
-                          ref={reviewMsgRef}
-                          placeholder="Share your thoughts"
-                          required
-                        />
-                        <button
-                          className="btn primary__btn text-white"
-                          type="submit"
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </Form>
+                    {user && (
+                      <Form onSubmit={submitHandler}>
+                        <div className="d-flex align-items-center gap-3 mb-4 rating_group">
+                          {[1, 2, 3, 4, 5].map((rating) => (
+                            <span
+                              key={rating}
+                              onClick={() => setTourRating(rating)}
+                              className={tourRating === rating ? 'active' : ''}
+                            >
+                              {rating} <i className="ri-star-s-fill"></i>
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="review_input">
+                          <input
+                            type="text"
+                            ref={reviewMsgRef}
+                            placeholder="Share your thoughts"
+                            required
+                          />
+                          <button
+                            className="btn primary__btn text-white"
+                            type="submit"
+                            disabled={loading}
+                          >
+                            {loading ? 'Submitting...' : 'Submit'}
+                          </button>
+                        </div>
+                      </Form>
+                    )}
 
                     <ListGroup className="user_review">
-                      {reviews?.map((reviews) => (
-                        <div className="review_item">
-                          <img src={avatar} alt="" />
+                      {reviews?.map((review) => (
+                        <div key={review._id} className="review_item">
+                          <img src={review.userId?.photo || avatar} alt="" />
 
                           <div className="w-100">
                             <div className="d-flex align-items-center justify-content-between">
                               <div>
-                                <h5>{reviews.username}</h5>
+                                <h5>{review.userId?.username}</h5>
                                 <p>
-                                  {new Date(reviews.createdAt).toLocaleDateString(
+                                  {new Date(review.createdAt).toLocaleDateString(
                                     "en-US",
                                     options
                                   )}
                                 </p>
                               </div>
                               <span className="d-flex align-items-center">
-                                {reviews.rating} <i className="ri-star-s-fill"></i>
+                                {review.rating} <i className="ri-star-s-fill"></i>
                               </span>
                             </div>
-                            <h6>{reviews.reviewText}</h6>
+                            <h6>{review.reviewText}</h6>
                           </div>
                         </div>
                       ))}
@@ -211,6 +236,6 @@ export default function TourDetails () {
       <Newsletter />
     </>
   );
-};
+}
 
 

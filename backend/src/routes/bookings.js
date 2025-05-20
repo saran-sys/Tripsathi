@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express';
 import { protect } from '../middleware/authMiddleware.js';
 import {
   createBooking,
@@ -28,4 +28,4 @@ router.put('/:id', updateBooking);
 // Delete booking
 router.delete('/:id', deleteBooking);
 
-export default router;
+export default router; 
