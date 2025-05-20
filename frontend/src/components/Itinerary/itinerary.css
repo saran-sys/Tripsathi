@@ -6,71 +6,137 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 30px;
 }
 
-.itinerary__card {
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+.itinerary__item {
+  background: #fff;
   border-radius: 10px;
-  overflow: hidden;
-  transition: 0.3s;
-  margin-bottom: 2rem;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.itinerary__card:hover {
-  transform: translateY(-5px);
+.itinerary__title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.2;
 }
 
-.itinerary__img {
-  height: 200px;
-  overflow: hidden;
+.itinerary__description {
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-size: 16px;
 }
 
-.itinerary__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.3s;
+.itinerary__destinations {
+  margin-bottom: 20px;
 }
 
-.itinerary__card:hover .itinerary__img img {
-  transform: scale(1.1);
+.destination__item {
+  border: none !important;
+  border-bottom: 1px solid #eee !important;
+  padding: 15px !important;
 }
 
-.itinerary__content {
-  padding: 1.5rem;
+.destination__item:last-child {
+  border-bottom: none !important;
 }
 
-.itinerary__content h5 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.itinerary__content p {
-  color: #6c757d;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.itinerary__info {
+.destination__header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.itinerary__info span {
-  font-size: 0.9rem;
-  color: #6c757d;
+.destination__header h5 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
 }
 
-.itinerary__info span i {
-  margin-right: 0.5rem;
+.destination__date {
+  color: #666;
+  font-size: 14px;
+}
+
+.destination__notes {
+  color: #666;
+  margin: 0;
+  font-size: 14px;
+}
+
+.itinerary__footer {
+  display: flex;
+  justify-content: flex-end;
+  color: #666;
+  font-size: 14px;
 }
 
 .itinerary__actions {
   display: flex;
-  gap: 1rem;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.primary__btn {
+  background: #ff7e01;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.primary__btn:hover {
+  background: #ff6b00;
+  transform: translateY(-2px);
+}
+
+.secondary__btn {
+  background: #6c757d;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.secondary__btn:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.edit__btn {
+  background: #28a745;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.edit__btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.delete__btn {
+  background: #dc3545;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.delete__btn:hover {
+  background: #c82333;
+  transform: translateY(-2px);
 }
 
 /* Form Styles */
@@ -117,8 +183,12 @@
     text-align: center;
   }
   
-  .itinerary__img {
-    height: 180px;
+  .itinerary__title {
+    font-size: 28px;
+  }
+  
+  .itinerary__actions {
+    justify-content: center;
   }
 }
 
@@ -127,13 +197,18 @@
     padding: 1.5rem;
   }
   
-  .itinerary__info {
-    flex-direction: column;
-    gap: 0.5rem;
+  .itinerary__title {
+    font-size: 24px;
   }
   
   .itinerary__actions {
     flex-direction: column;
+    width: 100%;
+  }
+  
+  .itinerary__actions .btn {
+    width: 100%;
+    margin-bottom: 10px;
   }
   
   .destination__item .row {
@@ -143,5 +218,34 @@
   
   .destination__item .col-md-1 {
     text-align: right;
+  }
+}
+
+.copy__success {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 } 

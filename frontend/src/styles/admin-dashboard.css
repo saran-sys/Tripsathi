@@ -1,0 +1,141 @@
+.admin-dashboard {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.admin-sidebar {
+  background: white;
+  min-height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.admin-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-header h3 {
+  margin: 0;
+  color: #2b2e4a;
+}
+
+.admin-nav {
+  padding: 20px 0;
+}
+
+.admin-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-nav li {
+  margin-bottom: 5px;
+}
+
+.admin-nav button {
+  width: 100%;
+  text-align: left;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  color: #2b2e4a;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.admin-nav button:hover {
+  background-color: #f8f9fa;
+  color: #2b2e4a;
+}
+
+.admin-nav button.active {
+  background-color: #2b2e4a;
+  color: white;
+}
+
+.admin-content {
+  padding: 30px;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.admin-table {
+  width: 100%;
+}
+
+.admin-table th {
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.btn-primary {
+  background-color: #2b2e4a;
+  border-color: #2b2e4a;
+}
+
+.btn-primary:hover {
+  background-color: #1a1c2e;
+  border-color: #1a1c2e;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 8px 12px;
+}
+
+.form-control:focus {
+  border-color: #2b2e4a;
+  box-shadow: 0 0 0 0.2rem rgba(43, 46, 74, 0.25);
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-pending {
+  background-color: #ffeeba;
+  color: #856404;
+}
+
+.status-confirmed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+} 

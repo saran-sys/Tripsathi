@@ -122,3 +122,32 @@ export const updateItinerary = async (req, res) => {
     });
   }
 };
+
+// @desc Delete itinerary
+export const deleteItinerary = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user._id; // Get user ID from auth middleware
+
+    const deleted = await Itinerary.findOneAndDelete({ _id: id, userId });
+
+    if (!deleted) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Itinerary not found' 
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Itinerary deleted successfully'
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to delete itinerary',
+      error: err.message 
+    });
+  }
+};

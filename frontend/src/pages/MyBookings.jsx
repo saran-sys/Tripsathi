@@ -87,7 +87,16 @@ const MyBookings = () => {
       <Container>
         <Row>
           <Col lg="12">
-            <h2 className="mb-4">My Bookings</h2>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h2>My Bookings</h2>
+              <Button 
+                className="btn primary__btn"
+                onClick={() => navigate('/dashboard')}
+              >
+                <i className="ri-arrow-left-line me-2"></i>
+                Back to Dashboard
+              </Button>
+            </div>
             {bookings.length === 0 ? (
               <div className="text-center">
                 <h4>No bookings found</h4>
@@ -98,7 +107,7 @@ const MyBookings = () => {
             ) : (
               <div className="booking__list">
                 {bookings.map(booking => (
-                  <div className="booking__card" key={booking._id}>
+                  <div key={booking._id} className="booking__item">
                     <div className="booking__img">
                       <img src={booking.tourId?.photo} alt={booking.tourId?.title} />
                     </div>

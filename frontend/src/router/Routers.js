@@ -15,6 +15,7 @@ import UserDashboard from './../pages/UserDashboard';
 import ProtectedRoute from '../components/ProtectedRoute';
 import ItineraryList from '../components/Itinerary/ItineraryList';
 import ItineraryForm from '../components/Itinerary/ItineraryForm';
+import ItineraryDetails from '../components/Itinerary/ItineraryDetails';
 import MyBookings from '../pages/MyBookings';
 
 const Routers = () => {
@@ -30,7 +31,11 @@ const Routers = () => {
         <Route path='/thank-you' element={<Thankyou/>} />
         <Route path='/tours/search' element={<SearchResultList/>} />
         <Route path='/flights' element={<FlightsPage />} />
-        <Route path='/add-tour' element={<AddTour />} />
+        <Route path='/add-tour' element={
+          <ProtectedRoute>
+            <AddTour />
+          </ProtectedRoute>
+        } />
         <Route path='/dashboard' element={
           <ProtectedRoute>
             <UserDashboard />
@@ -54,6 +59,16 @@ const Routers = () => {
         <Route path='/itinerary/edit/:id' element={
           <ProtectedRoute>
             <ItineraryForm />
+          </ProtectedRoute>
+        } />
+        <Route path='/itinerary/:id' element={
+          <ProtectedRoute>
+            <ItineraryDetails />
+          </ProtectedRoute>
+        } />
+         <Route path='/admin' element={
+          <ProtectedRoute>
+            <AdminDashboard />
           </ProtectedRoute>
         } />
     </Routes>

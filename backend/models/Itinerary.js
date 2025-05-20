@@ -7,9 +7,27 @@ const ItinerarySchema = new mongoose.Schema({
     required: true,
     ref: 'User',
   },
-  title: String,
-  description: String,
-  destinations: [String],
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  destinations: [{
+    location: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
+    notes: {
+      type: String,
+    }
+  }],
   sharedSlug: {
     type: String,
     unique: true,

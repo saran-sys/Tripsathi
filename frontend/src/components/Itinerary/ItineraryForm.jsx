@@ -117,7 +117,7 @@ const ItineraryForm = () => {
         throw new Error(responseData.message || 'Failed to save itinerary');
       }
 
-      navigate('/my-itineraries');
+      navigate('/itinerary');
     } catch (error) {
       console.error('Error saving itinerary:', error);
       alert(error.message);
