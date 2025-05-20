@@ -17,6 +17,7 @@ import ItineraryList from '../components/Itinerary/ItineraryList';
 import ItineraryForm from '../components/Itinerary/ItineraryForm';
 import ItineraryDetails from '../components/Itinerary/ItineraryDetails';
 import MyBookings from '../pages/MyBookings';
+import AdminDashboard from '../pages/AdminDashboard';
 
 const Routers = () => {
   return (

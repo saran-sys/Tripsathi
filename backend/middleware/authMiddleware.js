@@ -2,9 +2,11 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export const protect = async (req, res, next) => {
+  console.log(req)
   try {
     // Get token from header
     const authHeader = req.headers.authorization;
+    console.log(authHeader,'authHeader')
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         success: false,
@@ -25,7 +27,7 @@ export const protect = async (req, res, next) => {
         message: 'User not found'
       });
     }
-
+console.log(user)
     // Add user to request object
     req.user = user;
     next();
