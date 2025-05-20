@@ -24,7 +24,11 @@ const ItineraryForm = () => {
 
   const fetchItinerary = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/itinerary/${id}`);
+      const res = await fetch(`${BASE_URL}/itineraries/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
       const data = await res.json();
       setFormData(data);
     } catch (error) {
@@ -69,9 +73,25 @@ const ItineraryForm = () => {
     e.preventDefault();
     
     try {
-      const url = id ? `${BASE_URL}/itinerary/${id}` : `${BASE_URL}/itinerary`;
+      if (!user?.token) {
+        alert('Please log in to create an itinerary');
+        navigate('/login');
+        return;
+      }
+
+      // Format the destinations data
+      const formattedDestinations = formData.destinations.map(dest => ({
+        ...dest,
+        date: new Date(dest.date).toISOString() // Convert date to ISO string
+      }));
+
+      const url = id ? `${BASE_URL}/itineraries/${id}` : `${BASE_URL}/itineraries`;
       const method = id ? 'PUT' : 'POST';
       
+      console.log('Making request to:', url);
+      console.log('With token:', user.token);
+      console.log('Request body:', { ...formData, destinations: formattedDestinations });
+
       const res = await fetch(url, {
         method,
         headers: {
@@ -80,15 +100,22 @@ const ItineraryForm = () => {
         },
         body: JSON.stringify({
           ...formData,
-          userId: user._id
+          destinations: formattedDestinations
         })
       });
 
-      if (!res.ok) throw new Error('Failed to save itinerary');
+      console.log('Response status:', res.status);
+      const responseData = await res.json();
+      console.log('Response data:', responseData);
 
-      navigate('/itinerary');
+      if (!res.ok) {
+        throw new Error(responseData.message || 'Failed to save itinerary');
+      }
+
+      navigate('/my-itineraries');
     } catch (error) {
       console.error('Error saving itinerary:', error);
+      alert(error.message);
     }
   };
 

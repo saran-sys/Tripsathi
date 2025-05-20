@@ -1,7 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 // Load env vars
 dotenv.config();
@@ -12,15 +13,21 @@ const app = express();
 // Body parser
 app.use(express.json());
 
+// Cookie parser
+app.use(cookieParser());
+
 // Enable CORS
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 // Import routes
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/users');
-const tourRoutes = require('./routes/tours');
-const bookingRoutes = require('./routes/bookings');
-const itineraryRoutes = require('./routes/itinerary');
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/users.js';
+import tourRoutes from './routes/tours.js';
+import bookingRoutes from './routes/bookings.js';
+import itineraryRoutes from './routes/itinerary.js';
 
 // Mount routes
 app.use('/api/v1/auth', authRoutes);
@@ -29,13 +36,26 @@ app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/itinerary', itineraryRoutes);
 
+// Add a test route to verify the server is working
+app.get('/api/v1/test', (req, res) => {
+  res.json({ message: 'API is working!' });
+});
+
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: `Route not found: ${req.originalUrl}`
+  });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
+  console.error('Error:', err);
+  res.status(err.status || 500).json({
     success: false,
-    message: 'Something went wrong!',
-    error: err.message
+    message: err.message || 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err.stack : undefined
   });
 });
 

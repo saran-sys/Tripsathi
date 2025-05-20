@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ItinerarySchema = new mongoose.Schema({
   userId: {
@@ -33,4 +33,4 @@ const ItinerarySchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Itinerary', ItinerarySchema); 
+export default mongoose.model('Itinerary', ItinerarySchema); 

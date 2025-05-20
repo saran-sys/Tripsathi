@@ -18,6 +18,7 @@ export default function Register() {
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ export default function Register() {
   const handleClick = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const res = await fetch(`${BASE_URL}/auth/register`, {
@@ -36,6 +38,7 @@ export default function Register() {
         headers: {
           "content-type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(credentials),
       });
       const result = await res.json();
@@ -49,6 +52,8 @@ export default function Register() {
       navigate("/login");
     } catch (err) {
       setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,6 +83,7 @@ export default function Register() {
                       required
                       id="username"
                       onChange={handleChange}
+                      disabled={loading}
                     />
                   </FormGroup>
                   <FormGroup>
@@ -87,6 +93,7 @@ export default function Register() {
                       required
                       id="email"
                       onChange={handleChange}
+                      disabled={loading}
                     />
                   </FormGroup>
                   <FormGroup>
@@ -96,10 +103,15 @@ export default function Register() {
                       required
                       id="password"
                       onChange={handleChange}
+                      disabled={loading}
                     />
                   </FormGroup>
-                  <Button className="btn_login auth__btn" type="submit">
-                    Create Account
+                  <Button 
+                    className="btn_login auth__btn" 
+                    type="submit"
+                    disabled={loading}
+                  >
+                    {loading ? "Creating Account..." : "Create Account"}
                   </Button>
                 </Form>
                 <p>

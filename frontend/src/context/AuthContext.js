@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer, useContext } from "react";
+
 const initial_state = {
   user:
     localStorage.getItem("user") !== "undefined"
@@ -30,11 +31,23 @@ const AuthReducer = (state, action) => {
         loading: false,
         error: action.payload,
       };
+    case "REGISTER_START":
+      return {
+        user: null,
+        loading: true,
+        error: null,
+      };
     case "REGISTER_SUCCESS":
       return {
         user: null,
         loading: false,
         error: null,
+      };
+    case "REGISTER_FAILURE":
+      return {
+        user: null,
+        loading: false,
+        error: action.payload,
       };
     case "LOGOUT":
       return {
@@ -42,7 +55,6 @@ const AuthReducer = (state, action) => {
         loading: false,
         error: null,
       };
-
     default:
       return state;
   }

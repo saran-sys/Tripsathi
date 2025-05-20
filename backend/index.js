@@ -46,7 +46,7 @@ app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
 app.use("/api/v1/tour-bookings", tourBookingRoute);
 app.use('/api/external-flights', externalFlights);
-app.use('/api/itineraries', itineraryRoute);
+app.use('/api/v1/itineraries', itineraryRoute);
 
 app.listen(port, () => {
   connect();

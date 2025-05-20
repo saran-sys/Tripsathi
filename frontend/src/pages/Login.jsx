@@ -38,11 +38,19 @@ const Login = () => {
         body: JSON.stringify(credentials),
       });
       const result = await res.json();
-      if (!res.ok) alert(result.message);
+      
+      if (!res.ok) {
+        alert(result.message);
+        return;
+      }
 
-      console.log(result.data);
+      // Store the token in the user object
+      const userData = {
+        ...result.data,
+        token: result.token // Make sure the token is included
+      };
 
-      dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
+      dispatch({ type: "LOGIN_SUCCESS", payload: userData });
       navigate("/");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.message });
