@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { BASE_URL } from '../../utils/config';
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -10,6 +11,7 @@ const UserManagement = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    password: '',
     role: 'user'
   });
 
@@ -17,17 +19,40 @@ const UserManagement = () => {
     fetchUsers();
   }, []);
 
+  const getAuthHeader = () => {
+    const token = localStorage.getItem('token');
+    console.log('Current token:', token); // Debug log
+    if (!token) {
+      throw new Error('No token found');
+    }
+    return {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+  };
+
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:4000/api/v1/admin/users', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setUsers(response.data.data);
+      const headers = getAuthHeader();
+      console.log('Request headers:', headers); // Debug log
+
+      const response = await axios.get(`${BASE_URL}/admin/users`, { headers });
+      console.log('Fetch users response:', response.data); // Debug log
+      
+      if (response.data.success) {
+        setUsers(response.data.data);
+      } else {
+        toast.error(response.data.message || 'Failed to fetch users');
+      }
     } catch (error) {
-      toast.error('Failed to fetch users');
+      console.error('Error fetching users:', error);
+      if (error.message === 'No token found') {
+        toast.error('Please log in again');
+        // Optionally redirect to login
+        // window.location.href = '/login';
+      } else {
+        toast.error(error.response?.data?.message || 'Failed to fetch users');
+      }
     }
   };
 
@@ -38,6 +63,7 @@ const UserManagement = () => {
       setFormData({
         username: '',
         email: '',
+        password: '',
         role: 'user'
       });
     }
@@ -48,6 +74,7 @@ const UserManagement = () => {
     setFormData({
       username: user.username,
       email: user.email,
+      password: '', // Don't show password in edit mode
       role: user.role
     });
     setModal(true);
@@ -56,16 +83,22 @@ const UserManagement = () => {
   const handleDelete = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:4000/api/v1/admin/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        toast.success('User deleted successfully');
-        fetchUsers();
+        const headers = getAuthHeader();
+        const response = await axios.delete(`${BASE_URL}/admin/users/${userId}`, { headers });
+
+        if (response.data.success) {
+          toast.success('User deleted successfully');
+          fetchUsers();
+        } else {
+          toast.error(response.data.message || 'Failed to delete user');
+        }
       } catch (error) {
-        toast.error('Failed to delete user');
+        console.error('Error deleting user:', error);
+        if (error.message === 'No token found') {
+          toast.error('Please log in again');
+        } else {
+          toast.error(error.response?.data?.message || 'Failed to delete user');
+        }
       }
     }
   };
@@ -73,34 +106,53 @@ const UserManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      if (selectedUser) {
-        await axios.put(
-          `http://localhost:4000/api/v1/admin/users/${selectedUser._id}`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-        toast.success('User updated successfully');
-      } else {
-        await axios.post(
-          'http://localhost:4000/api/v1/admin/users',
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-        toast.success('User created successfully');
+      const headers = getAuthHeader();
+      const submitData = { ...formData };
+      
+      // If editing, don't send password if it's empty
+      if (selectedUser && !submitData.password) {
+        delete submitData.password;
       }
-      toggleModal();
-      fetchUsers();
+
+      console.log('Submitting data:', submitData); // Debug log
+      console.log('With headers:', headers); // Debug log
+
+      let response;
+      if (selectedUser) {
+        response = await axios.put(
+          `${BASE_URL}/admin/users/${selectedUser._id}`,
+          submitData,
+          { headers }
+        );
+      } else {
+        // For new users, ensure password is provided
+        if (!submitData.password) {
+          toast.error('Password is required for new users');
+          return;
+        }
+        response = await axios.post(
+          `${BASE_URL}/admin/users`,
+          submitData,
+          { headers }
+        );
+      }
+
+      console.log('Submit response:', response.data); // Debug log
+
+      if (response.data.success) {
+        toast.success(selectedUser ? 'User updated successfully' : 'User created successfully');
+        toggleModal();
+        fetchUsers();
+      } else {
+        toast.error(response.data.message || 'Operation failed');
+      }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Operation failed');
+      console.error('Error submitting form:', error);
+      if (error.message === 'No token found') {
+        toast.error('Please log in again');
+      } else {
+        toast.error(error.response?.data?.message || 'Operation failed');
+      }
     }
   };
 
@@ -186,6 +238,19 @@ const UserManagement = () => {
               />
             </FormGroup>
             <FormGroup>
+              <Label for="password">
+                Password {selectedUser && '(leave blank to keep current)'}
+              </Label>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                value={formData.password}
+                onChange={handleChange}
+                required={!selectedUser}
+              />
+            </FormGroup>
+            <FormGroup>
               <Label for="role">Role</Label>
               <Input
                 type="select"
@@ -199,7 +264,7 @@ const UserManagement = () => {
               </Input>
             </FormGroup>
             <Button color="primary" type="submit">
-              {selectedUser ? 'Update' : 'Create'}
+              {selectedUser ? 'Update User' : 'Create User'}
             </Button>
           </Form>
         </ModalBody>

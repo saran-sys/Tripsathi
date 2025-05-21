@@ -34,7 +34,6 @@ const Login = () => {
         headers: {
           "content-type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(credentials),
       });
       const result = await res.json();
@@ -44,15 +43,31 @@ const Login = () => {
         return;
       }
 
-      // Store the token in the user object
+      console.log('Login response:', result); // Debug log
+
+      // Store the token in localStorage
+      localStorage.setItem('token', result.token);
+      console.log('Token stored:', result.token); // Debug log
+
+      // Store the user data with token
       const userData = {
         ...result.data,
-        token: result.token // Make sure the token is included
+        token: result.token,
+        role: result.role
       };
 
+      console.log('User data:', userData); // Debug log
+
       dispatch({ type: "LOGIN_SUCCESS", payload: userData });
-      navigate("/");
+
+      // Redirect based on role
+      if (result.role === 'admin') {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
+      console.error('Login error:', err); // Debug log
       dispatch({ type: "LOGIN_FAILURE", payload: err.message });
     }
   };

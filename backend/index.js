@@ -11,6 +11,7 @@ import bookingRoute from "./routes/booking.js";
 import externalFlights from './routes/externalFlights.js';
 import tourBookingRoute from './routes/tourBookingRoutes.js';
 import itineraryRoute from './routes/itinerary.js';
+import adminRoute from './routes/admin.js';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use("/api/v1/booking", bookingRoute);
 app.use("/api/v1/tour-bookings", tourBookingRoute);
 app.use('/api/external-flights', externalFlights);
 app.use('/api/v1/itinerary', itineraryRoute);
+app.use('/api/v1/admin', adminRoute);
 
 app.get('/api/v1/test', (req, res) => {
   res.json({ message: 'API is working!' });
