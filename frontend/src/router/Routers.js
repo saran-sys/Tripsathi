@@ -18,6 +18,7 @@ import ItineraryForm from '../components/Itinerary/ItineraryForm';
 import ItineraryDetails from '../components/Itinerary/ItineraryDetails';
 import MyBookings from '../pages/MyBookings';
 import AdminDashboard from '../pages/AdminDashboard';
+import SustainabilityChat from '../pages/SustainabilityChat';
 
 const Routers = () => {
   return (
@@ -32,6 +33,7 @@ const Routers = () => {
         <Route path='/thank-you' element={<Thankyou/>} />
         <Route path='/tours/search' element={<SearchResultList/>} />
         <Route path='/flights' element={<FlightsPage />} />
+        <Route path='/chat' element={<SustainabilityChat/>}/>
         <Route path='/add-tour' element={
           <ProtectedRoute>
             <AddTour />

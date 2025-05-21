@@ -5,7 +5,9 @@ import {
   getUserBookings,
   getBooking,
   updateBooking,
-  deleteBooking
+  deleteBooking,
+  confirmPayment,
+  markAsComplete
 } from '../controllers/bookingController.js';
 
 const router = express.Router();
@@ -27,5 +29,11 @@ router.put('/:id', updateBooking);
 
 // Delete booking
 router.delete('/:id', deleteBooking);
+
+// Confirm payment
+router.put('/:id/confirm-payment', confirmPayment);
+
+// Mark as complete
+router.put('/:id/complete', markAsComplete);
 
 export default router;

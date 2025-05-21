@@ -69,6 +69,29 @@ const MyBookings = () => {
     }
   };
 
+  const handleMarkAsComplete = async (bookingId) => {
+    try {
+      const res = await fetch(`${BASE_URL}/booking/${bookingId}/complete`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message || 'Failed to mark booking as complete');
+      }
+
+      // Refresh bookings after marking as complete
+      fetchBookings();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   if (loading) return <h4 className="text-center pt-5">Loading.....</h4>;
   if (error) return <h4 className="text-center pt-5">{error}</h4>;
 
@@ -135,6 +158,14 @@ const MyBookings = () => {
                           onClick={() => handleCancelBooking(booking._id)}
                         >
                           Cancel Booking
+                        </Button>
+                      )}
+                      {booking.status === 'confirmed' && (
+                        <Button
+                          className="btn success__btn mt-3"
+                          onClick={() => handleMarkAsComplete(booking._id)}
+                        >
+                          Mark as Complete
                         </Button>
                       )}
                     </div>

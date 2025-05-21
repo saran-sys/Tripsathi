@@ -1,0 +1,180 @@
+.booking-management {
+  padding: 2rem 0;
+}
+
+.booking__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.booking__item {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.booking__item:hover {
+  transform: translateY(-5px);
+}
+
+.booking__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.booking__tour {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.booking__tour img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.booking__tour h5 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--heading-color);
+}
+
+.booking__tour p {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.booking__details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.booking__user,
+.booking__info,
+.booking__tour-info {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.booking__user h6,
+.booking__info h6,
+.booking__tour-info h6 {
+  color: var(--heading-color);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.user__info {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.user__info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user__info p,
+.booking__info p,
+.booking__tour-info p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.booking__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-confirmed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-completed {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.primary__btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.primary__btn:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.danger__btn {
+  background: #dc3545 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 0.8rem 1.5rem !important;
+  color: #fff !important;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.danger__btn:hover {
+  background: #c82333 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+.success__btn {
+  background: #28a745 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 0.8rem 1.5rem !important;
+  color: #fff !important;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.success__btn:hover {
+  background: #218838 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+} 
