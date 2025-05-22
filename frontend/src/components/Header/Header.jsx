@@ -23,6 +23,10 @@ const nav_links = [
     path: "/flights",
     display: "Flights",
   },
+  {
+    path: "/weather",
+    display: "Weather",
+  },
 ];
 
 const Header = () => {

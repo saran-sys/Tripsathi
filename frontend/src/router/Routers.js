@@ -19,6 +19,9 @@ import ItineraryDetails from '../components/Itinerary/ItineraryDetails';
 import MyBookings from '../pages/MyBookings';
 import AdminDashboard from '../pages/AdminDashboard';
 import SustainabilityChat from '../pages/SustainabilityChat';
+import Weather from '../components/Weather/Weather';
+import Destinations from '../pages/Destinations';
+import DestinationManagement from '../pages/admin/DestinationManagement';
 
 const Routers = () => {
   return (
@@ -34,6 +37,9 @@ const Routers = () => {
         <Route path='/tours/search' element={<SearchResultList/>} />
         <Route path='/flights' element={<FlightsPage />} />
         <Route path='/chat' element={<SustainabilityChat/>}/>
+        <Route path='/weather' element={<Weather/>}/>
+        <Route path='/weather/:lat/:lon' element={<Weather/>}/>
+        <Route path='/destinations' element={<Destinations/>} />
         <Route path='/add-tour' element={
           <ProtectedRoute>
             <AddTour />
@@ -69,9 +75,14 @@ const Routers = () => {
             <ItineraryDetails />
           </ProtectedRoute>
         } />
-         <Route path='/admin' element={
+        <Route path='/admin' element={
           <ProtectedRoute>
             <AdminDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/destinations' element={
+          <ProtectedRoute>
+            <DestinationManagement />
           </ProtectedRoute>
         } />
     </Routes>

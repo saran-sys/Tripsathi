@@ -5,6 +5,7 @@ import UserManagement from '../components/admin/UserManagement';
 import BookingManagement from '../components/admin/BookingManagement';
 import TourManagement from '../components/admin/TourManagement';
 import ReviewManagement from '../components/admin/ReviewManagement';
+import DestinationManagement from './admin/DestinationManagement';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('users');
@@ -19,6 +20,8 @@ const AdminDashboard = () => {
         return <TourManagement />;
       case 'reviews':
         return <ReviewManagement />;
+      case 'destinations':
+        return <DestinationManagement />;
       default:
         return <UserManagement />;
     }
@@ -64,6 +67,14 @@ const AdminDashboard = () => {
                     onClick={() => setActiveTab('reviews')}
                   >
                     Review Management
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={activeTab === 'destinations' ? 'active' : ''}
+                    onClick={() => setActiveTab('destinations')}
+                  >
+                    Destination Management
                   </button>
                 </li>
               </ul>

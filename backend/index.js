@@ -13,11 +13,13 @@ import tourBookingRoute from './routes/tourBookingRoutes.js';
 import itineraryRoute from './routes/itinerary.js';
 import adminRoute from './routes/admin.js';
 import groqRoute from './routes/groq.js';
+import weatherRoutes from './routes/weather.js';
+import destinationRoutes from './routes/destinationRoutes.js';
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true
@@ -51,6 +53,8 @@ app.use('/api/external-flights', externalFlights);
 app.use('/api/v1/itinerary', itineraryRoute);
 app.use('/api/v1/admin', adminRoute);
 app.use('/api/v1/groq', groqRoute);
+app.use('/api/weather', weatherRoutes);
+app.use('/api/destinations', destinationRoutes);
 
 app.get('/api/v1/test', (req, res) => {
   res.json({ message: 'API is working!' });

@@ -7,10 +7,10 @@ import heroImg02 from "../assets/images/hero-img02.jpg";
 import heroVideo from "../assets/images/hero-video.mp4";
 import experienceImg from "../assets/images/experience.png"
 
-
 import SearchBar from "../shared/SearchBar";
 import ServiceList from "../services/ServiceList";
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList";
+import FeaturedDestinationList from "../components/Featured-destinations/FeaturedDestinationList";
 import MasonryImagesGallery from "../components/image-gallery/MasonryImagesGallery";
 import Testimonials from "../components/Testimonial/Testimonials";
 import Newsletter from "../shared/Newsletter";
@@ -25,7 +25,7 @@ const Home = () => {
             <Col lg="6">
               <div className="hero_Content">
                 <h1>
-                  Welecome <br /> to Nepal
+                  Welcome <br /> to Nepal
                 </h1>
                 <p>
                   Discover the beauty of Nepal - pristine beaches, lush tea
@@ -59,17 +59,19 @@ const Home = () => {
       </section>
       {/* hero section end */}
 
+      {/* Featured destinations start */}
       <section>
         <Container>
           <Row>
-            <Col lg="3">
-              <h5 className="subtitle">What we serve</h5>
-              <h2 className="service_title">We offer our best services</h2>
+            <Col lg="12" className="mb-5">
+              <h5 className="subtitle">Destinations</h5>
+              <h2 className="featured_tour-title">Popular Destinations</h2>
             </Col>
-            <ServiceList />
+            <FeaturedDestinationList />
           </Row>
         </Container>
       </section>
+      {/* Featured destinations end */}
 
       {/* Featured tours start */}
       <section>
@@ -83,25 +85,21 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-
-      {/* Featured tours start */}
+      {/* Featured tours end */}
 
       {/* Experience section start */}
-
       <section>
         <Container>
           <Row>
             <Col lg="6">
               <div className="experience_content">
-                <h5 className="subtitle">Exprience</h5>
+                <h5 className="subtitle">Experience</h5>
                 <h2>
                   With our all Experience
                   <br /> we will serve you
                 </h2>
                 <p>
-                Discover the Jewel of the Indian Ocean with Our Unforgettable Sri Lanka Adventures!,
-                  <br />
-                  Immerse Yourself in Rich Culture, Pristine Beaches, and Breathtaking Landscapes. Book Your Journey Today and Let the Island Magic Begin!
+                   At Tripsathii, our experience is your advantage. From hidden gems to iconic landmarks, we use our in-depth knowledge to deliver unforgettable travel experiences — personalized, seamless, and truly yours.
                 </p>
               </div>
 
@@ -122,13 +120,12 @@ const Home = () => {
             </Col>
             <Col lg="6">
               <div className="experience_img">
-                <img src={experienceImg} />
+                <img src={experienceImg} alt="experience" />
               </div>
             </Col>
           </Row>
         </Container>
       </section>
-
       {/* Experience section end */}
 
       {/* Gallery section start */}
@@ -147,11 +144,9 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-
-      {/* Gallery section start */}
+      {/* Gallery section end */}
 
       {/* Testimonial section start */}
-
       <section>
         <Container>
           <Col lg="12">
@@ -163,8 +158,8 @@ const Home = () => {
           </Col>
         </Container>
       </section>
-
       {/* Testimonial section end */}
+      
       <Newsletter/>
     </>
   );
